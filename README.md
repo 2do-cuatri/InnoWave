@@ -16,6 +16,18 @@
 > npm run dev
 > ```
 
+
+---
+
+## 🔗 Workspace de Postman
+
+Podés probar todos los endpoints desde este workspace colaborativo de Postman:
+
+👉 [Unirse al Workspace de Postman](https://web.postman.co/workspace/8de94b38-d9ad-4a1e-af69-be5447f66ca7)
+
+> Si no tenés cuenta en Postman, se te pedirá crear una gratuita para acceder.
+
+
 ---
 
 ## 🚀 Endpoints disponibles
