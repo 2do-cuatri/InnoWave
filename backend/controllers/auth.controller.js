@@ -45,7 +45,7 @@ export const signIn = async (req, res, next) => {
             httpOnly: true,
             sameSite: true
         })
-        res.sendStatus(200);
+        res.status(200).jsonp(user);
     }catch(err) {
         next(err)
     }
@@ -53,7 +53,10 @@ export const signIn = async (req, res, next) => {
 
 export const signOut = async (req, res, next) => {
     try {
-        res.clearCookie(process.env.JWT_COOKIE_NAME)
+        res.clearCookie(process.env.JWT_COOKIE_NAME, {
+            httpOnly: true,
+            sameSite: true
+        })
         res.sendStatus(200)
     } catch(err) {
         next(err)

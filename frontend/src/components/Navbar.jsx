@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {LuSun} from 'react-icons/lu'
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
-import { useProductStore } from '../store/product';
 
 function Navbar() {
   const {colorMode, toggleColorMode} = useColorMode();

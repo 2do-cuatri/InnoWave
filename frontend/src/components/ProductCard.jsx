@@ -1,5 +1,24 @@
 import { DeleteIcon, EditIcon,VStack } from '@chakra-ui/icons';
-import { Box, Text, Stack, Badge, IconButton, Heading, Image, useColorModeValue, useToast, HStack, Modal, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button } from '@chakra-ui/react';
+import { 
+  Box,
+  Text, 
+  IconButton, 
+  Heading, 
+  Image, 
+  useDisclosure, 
+  useColorModeValue, 
+  useToast, 
+  HStack, 
+  Modal, 
+  ModalOverlay, 
+  ModalContent, 
+  ModalHeader, 
+  ModalCloseButton, 
+  ModalBody, 
+  ModalFooter, 
+  Button,
+  Input 
+} from '@chakra-ui/react';
 import { useProductStore } from '../store/product';
 import { useState } from 'react';
 

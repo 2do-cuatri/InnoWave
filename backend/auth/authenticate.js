@@ -3,9 +3,7 @@ import { verificarToken } from "../lib/jwt.js";
 
 export async function authenticate(req, res, next) {
     try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader.toLowerCase().startsWith('bearer ')) throw new CustomError("El formato del JWT es incorrecto", 400)
-        const token = authHeader.split(' ')[1]
+        const token = req.cookies[process.env.JWT_COOKIE_NAME];
         if (!token) throw new CustomError("No autorizado: no se encontro ningun token", 401);
         const decoded = verificarToken(token)
         if (!decoded || !decoded._id) throw new CustomError("No autorizado: no se pudo validar el token", 401);

@@ -2,6 +2,7 @@ import { Container,Text, SimpleGrid, VStack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import React, { useEffect } from 'react'
 import { useProductStore } from '../store/product';
+import ProductCard from '../components/ProductCard';
 
 const HomePage = () => {
 
