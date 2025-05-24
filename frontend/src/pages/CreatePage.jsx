@@ -2,6 +2,8 @@ import { Box, Container, Heading, useColorModeValue,Input,Button, useToast,VStac
 import { useState } from "react";
 import { useProductStore } from "../store/product";
 
+// TODO: poner lindo con chakra + toast
+
 const CreatePage = () => {
   const [newProduct, setNewProduct] = useState({
     name:"",

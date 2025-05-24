@@ -20,18 +20,28 @@ import {
   Input 
 } from '@chakra-ui/react';
 import { useProductStore } from '../store/product';
-import { useState } from 'react';
 
+import { useForm } from 'react-hook-form';
 
 const ProductCard = ({ product }) => {
 
-  const [updatedProduct, setUpdatedProduct] = useState(product);
   const textColor = useColorModeValue("gray.600","gray.200");
   const bg = useColorModeValue("white","gray.800");
 
   const {deleteProduct, updateProduct} = useProductStore()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const {
+    handleSubmit,
+    register,
+  } = useForm({
+    defaultValues: {
+      name: product.name,
+      stock: product.stock,
+      price: product.price,
+      image: product.image
+    }
+  });
   
 
   const handleDeleteProduct = async (pid) => {
@@ -56,8 +66,9 @@ const ProductCard = ({ product }) => {
   }
 
  
-  const handleUpdateProduct = async (pid, updatedProduct) =>{
-    const {success,message }=await updateProduct(pid,updatedProduct);
+  const handleUpdateProduct = async (updatedProduct) =>{
+
+    const {success,message }=await updateProduct(product._id, updatedProduct);
     onClose();
     if(!success){
       toast({
@@ -105,35 +116,26 @@ const ProductCard = ({ product }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay/>
           <ModalContent>
-            <ModalHeader>Modificar producto</ModalHeader>
-            <ModalCloseButton/>
-            <ModalBody>
-              <VStack spacing={4}>
-                <Input placeholder="Nombre" name="name"
-                value={updatedProduct.name}
-                onChange={(e) =>setUpdatedProduct({...updatedProduct, name: e.target.value})}/>
-                <Input placeholder="Precio" name="price" type="number"
-                value={updatedProduct.price}
-                onChange={(e) =>setUpdatedProduct({...updatedProduct, price: e.target.value})}/>
-                <Input placeholder="Cantidad" name="stock" type="number"
-                value={updatedProduct.stock}
-                onChange={(e) =>setUpdatedProduct({...updatedProduct, stock: e.target.value})}/>
-                <Input placeholder="Image URL" name="image"
-                value={updatedProduct.image}
-                onChange={(e) =>setUpdatedProduct({...updatedProduct, image: e.target.value})}/>
-                
-              </VStack>            
-            </ModalBody>
-            <ModalFooter>
-              <Button colorScheme='blue' mr={3}
-              onClick={() => handleUpdateProduct(product._id, updatedProduct)}
-              >
-                Modificar
-              </Button>
-              <Button variant='ghost' onClick={onClose}>
-                Cancelar
-              </Button>
-            </ModalFooter>
+            <form onSubmit={handleSubmit(handleUpdateProduct)}>
+              <ModalHeader>Modificar producto</ModalHeader>
+              <ModalCloseButton/>
+              <ModalBody>
+                  <VStack spacing={4}>
+                    <Input placeholder="Nombre" name="name" {...register('name')} />
+                    <Input placeholder="Precio" name="price" type="number" {...register('price')} />
+                    <Input placeholder="Cantidad" name="stock" type="number" {...register('stock')} />
+                    <Input placeholder="Image URL" name="image" {...register('image')} />
+                  </VStack>            
+              </ModalBody>
+              <ModalFooter>
+                <Button colorScheme='blue' mr={3} type='submit'>
+                  Modificar
+                </Button>
+                <Button variant='ghost' onClick={onClose} type="reset">
+                  Cancelar
+                </Button>
+              </ModalFooter>
+            </form>
           </ModalContent>
 
       </Modal>

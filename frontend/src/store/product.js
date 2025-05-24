@@ -1,4 +1,5 @@
 import {create} from "zustand";
+import { API_URL } from "../constants/api";
 
 export const useProductStore = create((set) => ({
     products: [],
@@ -7,7 +8,8 @@ export const useProductStore = create((set) => ({
         if(!newProduct.name || !newProduct.image || !newProduct.stock || !newProduct.price) {
             return {success:false, message:"Por favor complete todos los campos"};
         }
-        const res = await fetch("/api/products", {
+        const res = await fetch(`${API_URL}/products`, {
+            credentials: 'include',
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -19,12 +21,15 @@ export const useProductStore = create((set) => ({
         return {success:true, message: "Producto creado con éxito"}
 },
     fetchProducts: async () => {
-        const res = await fetch("/api/products");
+        const res = await fetch(`${API_URL}/products`, {
+            credentials: 'include'
+        });
         const data = await res.json();
         set({ products: data.data})
     },
     deleteProduct: async (pid) => {
-        const res = await fetch(`/api/products/${pid}`, {
+        const res = await fetch(`${API_URL}/products/${pid}`, {
+            credentials: 'include',
             method: "DELETE",
         });
         const data = await res.json();
@@ -33,9 +38,10 @@ export const useProductStore = create((set) => ({
         return {success: true, message: data.message};
     },
     updateProduct: async (pid,updatedProduct) => {
-        const res = await fetch(`/api/products/${pid}`,{
+        const res = await fetch(`${API_URL}/products/${pid}`,{
+            credentials: 'include',
             method: "PUT",
-            hedaders: {
+            headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(updatedProduct),

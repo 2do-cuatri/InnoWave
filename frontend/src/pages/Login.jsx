@@ -3,7 +3,7 @@ import AuthenticationContext from '../components/authentication/AuthenticationCo
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate } from 'react-router-dom';
-
+// TODO: Poner lindo con chakra + toasts
 const Login = () => {
 
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Login = () => {
             if (!response.success) {
                 return setError('root', { message: response.error.message })
             }
-            navigate('/productos')
+            navigate('/')
         } catch(err) {
             console.error('Cliente ', err)
         }

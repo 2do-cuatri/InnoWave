@@ -5,6 +5,7 @@ import CreatePage from "./pages/CreatePage";
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from "./components/authentication/ProtectedRoute";
 import Login from "./pages/Login";
+import SignUp from "./pages/Signup";
 
 function App() {
   
@@ -13,6 +14,12 @@ function App() {
       <Box minH={"100vh"}bg={useColorModeValue("gray.100","gray.900")}>
         <Navbar/>
         <Routes>
+          <Route path="*" element={
+            // TODO: hacer una pagina not found
+            <div>
+              Oops, parece que la pagina que estas buscando no existe
+            </div>
+          } />
           <Route path="/" element={
             <ProtectedRoute>
               <HomePage/>
@@ -24,6 +31,7 @@ function App() {
               </ProtectedRoute>
             } />
           <Route path="/ingreso" element={<Login />} />
+          <Route path="/registro" element={<SignUp />} />
         </Routes>
 
       </Box>
