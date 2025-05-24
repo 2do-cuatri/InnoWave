@@ -1,10 +1,7 @@
 import React   from 'react'
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate } from "react-router-dom";
-import {
-    Container,
-    VStack
-} from '@chakra-ui/react'
+import { Container, VStack, FormControl,FormLabel, Input, Button, FormErrorMessage, Text, useColorModeValue, Heading,Box } from '@chakra-ui/react';
 
 import { useForm } from 'react-hook-form'
 import { signup } from '../queries/auth';
@@ -25,23 +22,42 @@ const SignUp = () => {
         }
     }
 
-    return <Container maxW='container.xl' py={12} minH="100vh"display="flex" flexDirection="column" justifyContent="center">
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack spacing={8}>
-                <div>
-                    <label htmlFor='email'>Email</label>
-                    <input id="email" type="email" {...register('email', {
+    return <Container maxW='container.sm' >
+        <VStack spacing={8}>
+            <Heading
+                as="h1"
+                size="xl"
+                textAlign="center"
+                color={useColorModeValue('blue.700', 'blue.300')}
+            >
+            Registrarse
+            </Heading>
+            <Box
+                w="full"
+                bg={useColorModeValue('white', 'gray.700')}
+                p={6}
+                rounded="lg"
+                shadow="md">
+
+            
+            <form onSubmit={handleSubmit(onSubmit)}>
+            
+                <FormControl isInvalid={!!errors.email}>
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <Input id="email" type="email" {...register('email', {
                         required: "Debes ingresar un email",
                         pattern: {
                             value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
                             message: "Ingresa un email valido"
                         }
                     })} />
-                    <ErrorMessage errors={errors} name="email" />
-                </div>
-                <div>
-                    <label htmlFor='password'>Contraseña</label>
-                    <input id="password" type="password" {...register('password', {
+                    <FormErrorMessage>
+                        <ErrorMessage errors={errors} name="email" />
+                    </FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.password}>
+                    <FormLabel htmlFor="password">Contraseña</FormLabel>
+                    <Input id="password" type="password" {...register('password', {
                         required: "Debes ingresar una contraseña",
                         minLength: {
                             value: 6,
@@ -52,18 +68,30 @@ const SignUp = () => {
                             message: "La contraseña es muy larga"
                         }
                     })} />
-                    <ErrorMessage errors={errors} name="password" />
-                </div>
-                <div>
+                    <FormErrorMessage>
+                        <ErrorMessage errors={errors} name="password" />
+                    </FormErrorMessage>
+                </FormControl>
+                <Text>
                     <ErrorMessage errors={errors} name="root" />
-                </div>
-                <button type="submit" disabled={isSubmitting} >
-                    {isSubmitting ? '...' : 'Registrarse'}
-                </button>
-            </VStack>
-        </form>
+                </Text>
+                <Button
+                    colorScheme="blue"
+                    type="submit"
+                    isLoading={isSubmitting}
+                    w="full"
+                    mt={4} 
+                >
+                 Registrarse
+                </Button>
+            </form>
+            </Box>
+        </VStack>
+        
     </Container>
 }
+          
+               
 
 
 export default SignUp;
