@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import {LuSun} from 'react-icons/lu'
 import { PlusSquareIcon } from '@chakra-ui/icons';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
+import SignOut from './authentication/SignOut';
 
 function Navbar() {
   const {colorMode, toggleColorMode} = useColorMode();
@@ -27,7 +28,7 @@ function Navbar() {
                     bgClip={'text'}
                 
                 >
-                    <Link to={"/"}>Listado de Productos</Link>
+                    <Link to={"/"}>Gestion de Productos</Link>
                 </Text>
                 <HStack spacing={2} alignItems={"center"} >
                     <Link to={"/create"}>
@@ -38,6 +39,7 @@ function Navbar() {
                     <Button onClick={toggleColorMode}>
                         {colorMode==="light"?<MoonIcon /> : <SunIcon size="20"/>}
                     </Button>
+                  <SignOut />
                 </HStack>
         </Flex>
 

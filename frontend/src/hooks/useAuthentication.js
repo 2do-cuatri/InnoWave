@@ -12,20 +12,18 @@ import { useNavigate } from 'react-router-dom';
  */
 export default function useAuthentication() {
     const [loading, setLoading] = useState(false);
-    const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
     const login = useCallback(async ({ email, password }) => {
         setLoading(true);
         const response = await loginQuery({ email, password })
         if (response.success) {
-            setUser(response.data);
-        } else {
-            setUser(null)
-        };
+            localStorage.setItem('user', response.data);
+        }
+        
         setLoading(false);
         return response;
-    }, [setLoading, setUser])
+    }, [setLoading])
 
     const check = useCallback(() => {
         setLoading(true);
@@ -39,10 +37,10 @@ export default function useAuthentication() {
 
     const logout = useCallback(() => {
         setLoading(true);
-        setUser(null);
+        localStorage.removeItem('user')
         navigate("/ingreso")
         logoutQuery().finally(() => setLoading(false))
     }, [navigate])
 
-    return { user, loading, login, check, logout }
+    return { loading, login, check, logout }
 }

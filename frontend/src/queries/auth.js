@@ -17,6 +17,21 @@ export async function login({ email, password }) {
     }
 
 /**
+ *  Postea el registro al BE
+ * @param email y contrasena
+ * @returns 
+ */
+export async function signup({ email, password }) {
+    const response = await axiosPostWrapper(`${API_URL}/auth/signup`, {
+        email,
+        password
+    }, {
+        withCredentials: true
+    })
+    return response;
+}
+
+/**
  * Manda el post a validate
  * @returns Devuelve true si esta autenticado, si no false.
  */
