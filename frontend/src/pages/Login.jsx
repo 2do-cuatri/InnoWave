@@ -92,6 +92,14 @@ const Login = () => {
                             isLoading={isSubmitting || loading}
                             w="full"
                             >Ingresar</Button>
+                            <Button
+                                variant="outline"
+                                colorScheme="gray"
+                                w="full"
+                                onClick={() => navigate('/registro')}
+                                >
+                                Crear cuenta
+                            </Button>
                         </VStack>
                     </form>
                 </Box>
