@@ -1,7 +1,7 @@
 import React   from 'react'
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate } from "react-router-dom";
-import { Container, VStack, FormControl,FormLabel, Input, Button, FormErrorMessage, Text, useColorModeValue, Heading,Box } from '@chakra-ui/react';
+import { Container, VStack, FormControl,FormLabel, Input, Button, FormErrorMessage, useToast, Text, useColorModeValue, Heading,Box } from '@chakra-ui/react';
 
 import { useForm } from 'react-hook-form'
 import { signup } from '../queries/auth';
@@ -10,14 +10,37 @@ const SignUp = () => {
     const navigate = useNavigate();
     const { handleSubmit, register, setError, formState: { errors, isSubmitting }} = useForm()
 
+    const toast = useToast();
+
     const onSubmit = async (data) => {
         try {
             const response = await signup({ ...data })
             if (!response.success) {
+                toast({
+                    title: 'Error de registro',
+                    description: response.error.message,
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true  
+                })
                 return setError('root', { message: response.error.message })
             }
+            toast({
+                title: "Registro exitoso",
+                description: "Cuenta creada con éxito",
+                status: 'success',
+                duration: 1000,
+                isClosable: true
+            });
             navigate('/ingreso')
         } catch(err) {
+            toast({
+                title: "Error inesperado",
+                description: err instanceof Error ? err.message : 'Error inesperado',
+                status: 'error',
+                duration: 5000,
+                isClosable: true
+            })
             console.error('Cliente ', err)
         }
     }

@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Heading, Input, VStack, FormControl, FormLabel, useColorModeValue, useToast, Text } from '@chakra-ui/react';
-// TODO: Poner lindo con chakra + toasts
 const Login = () => {
 
     const navigate = useNavigate();
@@ -26,16 +25,23 @@ const Login = () => {
                 });
                 return;
             }
+            toast({
+                title: "Ingreso exitoso",
+                description: "Has iniciado sesión",
+                status: 'success',
+                duration: 1000,
+                isClosable: true
+            });
             navigate('/')
         } catch(err) {
             console.error('Cliente ', err);
             toast({
-            title: 'Error del cliente',
-            description: 'Ocurrió un error inesperado',
-            status: 'error',
-            duration: 5000,
-            isClosable: true
-      });
+                title: "Error inesperado",
+                description: err instanceof Error ? err.message : 'Error inesperado',
+                status: 'error',
+                duration: 5000,
+                isClosable: true
+            });
         }
     }
 
