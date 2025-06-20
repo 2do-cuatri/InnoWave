@@ -117,7 +117,7 @@ const ProductCard = ({ product }) => {
           </HStack>
           {isLowStock && (
             <Text fontSize='xl' color='orange.500' fontWeight='bold' mb={4}>
-              ⚠ Alarma de stock
+              ⚠ Alerta de stock
             </Text>
           )}
 
