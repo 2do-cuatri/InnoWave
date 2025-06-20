@@ -28,6 +28,9 @@ const ProductCard = ({ product }) => {
   const textColor = useColorModeValue("gray.600","gray.200");
   const bg = useColorModeValue("white","gray.800");
 
+  const STOCK_THRESHOLD = 1;
+  const isLowStock = product.stock <= STOCK_THRESHOLD;
+
   const {deleteProduct, updateProduct} = useProductStore()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -106,10 +109,17 @@ const ProductCard = ({ product }) => {
         <Text fontWeight='bold' fontSize='xl' color={textColor} mb={4}>
           ${product.price}
         </Text>
-        <HStack spacing={2}>
-          <IconButton icon={<EditIcon/>} onClick={onOpen} colorScheme='blue'/>
-          <IconButton icon={<DeleteIcon/>} onClick={() => handleDeleteProduct (product._id)}
-          colorScheme='red'/>
+        <HStack spacing={2} justifyContent='space-between'>
+          <HStack spacing={2}>
+            <IconButton icon={<EditIcon/>} onClick={onOpen} colorScheme='blue'/>
+            <IconButton icon={<DeleteIcon/>} onClick={() => handleDeleteProduct (product._id)}
+            colorScheme='red'/>
+          </HStack>
+          {isLowStock && (
+            <Text fontSize='xl' color='orange.500' fontWeight='bold' mb={4}>
+              ⚠ Alarma de stock
+            </Text>
+          )}
 
         </HStack>
       </Box>
