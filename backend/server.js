@@ -7,6 +7,7 @@ import cors from 'cors'
 
 import productRoutes from "./routes/product.route.js";
 import authRoutes from "./routes/auth.route.js";
+import reportRoutes from "./routes/report.route.js";
 
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(cookieParser());
 // Rutas
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/reports", reportRoutes);
 
 
 // Es importante que este sea el ultimo middleware en la lista
