@@ -28,7 +28,7 @@ const ProductCard = ({ product }) => {
   const textColor = useColorModeValue("gray.600","gray.200");
   const bg = useColorModeValue("white","gray.800");
 
-  const STOCK_THRESHOLD = 1;
+  const STOCK_THRESHOLD = product.minStock;
   const isLowStock = product.stock <= STOCK_THRESHOLD;
 
   const {deleteProduct, updateProduct} = useProductStore()
@@ -41,6 +41,7 @@ const ProductCard = ({ product }) => {
     defaultValues: {
       name: product.name,
       stock: product.stock,
+      minStock: product.minStock,
       price: product.price,
       image: product.image
     }
@@ -134,6 +135,7 @@ const ProductCard = ({ product }) => {
                     <Input placeholder="Nombre" name="name" {...register('name')} />
                     <Input placeholder="Precio" name="price" type="number" {...register('price')} />
                     <Input placeholder="Cantidad" name="stock" type="number" {...register('stock')} />
+                    <Input placeholder="Cantidad minima" name="minStock" type="number" {...register('minStock')} />
                     <Input placeholder="Image URL" name="image" {...register('image')} />
                   </VStack>            
               </ModalBody>
