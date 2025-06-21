@@ -1,10 +1,9 @@
-import { Button, Container, Flex, HStack, Text, useColorMode } from '@chakra-ui/react';
+import { Button, Container, Flex, HStack, Text, Tooltip, useColorMode } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 //import {IoMoon} from 'react-icons/io5';
-import {LuSun} from 'react-icons/lu'
-import { PlusSquareIcon } from '@chakra-ui/icons';
-import { SunIcon, MoonIcon } from '@chakra-ui/icons';
-import SignOut from './authentication/SignOut';
+
+import { SunIcon, MoonIcon, CalendarIcon } from '@chakra-ui/icons';
+import ToolBar from './authentication/ToolBar';
 
 function Navbar() {
   const {colorMode, toggleColorMode} = useColorMode();
@@ -31,15 +30,16 @@ function Navbar() {
                     <Link to={"/"}>Gestion de Productos</Link>
                 </Text>
                 <HStack spacing={2} alignItems={"center"} >
-                    <Link to={"/create"}>
-                        <Button>
-                            <PlusSquareIcon fontSize={20}/>
+
+                                                          
+
+                    <Tooltip label={colorMode==="light"? "Modo Oscuro" : "Modo Claro"}>
+                        <Button onClick={toggleColorMode}>
+                            {colorMode==="light"?<MoonIcon /> : <SunIcon size="20"/>}
                         </Button>
-                    </Link>
-                    <Button onClick={toggleColorMode}>
-                        {colorMode==="light"?<MoonIcon /> : <SunIcon size="20"/>}
-                    </Button>
-                  <SignOut />
+                    </Tooltip>
+
+                  <ToolBar />
                 </HStack>
         </Flex>
 
