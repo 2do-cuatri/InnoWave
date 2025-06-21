@@ -6,10 +6,10 @@ import { authenticate } from "../auth/authenticate.js";
 
 const router = express.Router();
 
-//Obtener todos los productos
+//Obtener el reporte más reciente
 router.get("/", authenticate, getReport)
 
-//Crear un producto
+//Crear un reporte nuevo
 router.post("/", authenticate, createReport)
 
 
