@@ -28,6 +28,9 @@ const ProductCard = ({ product }) => {
   const textColor = useColorModeValue("gray.600","gray.200");
   const bg = useColorModeValue("white","gray.800");
 
+  const STOCK_THRESHOLD = product.minStock;
+  const isLowStock = product.stock <= STOCK_THRESHOLD;
+
   const {deleteProduct, updateProduct} = useProductStore()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -38,6 +41,7 @@ const ProductCard = ({ product }) => {
     defaultValues: {
       name: product.name,
       stock: product.stock,
+      minStock: product.minStock,
       price: product.price,
       image: product.image
     }
@@ -106,10 +110,17 @@ const ProductCard = ({ product }) => {
         <Text fontWeight='bold' fontSize='xl' color={textColor} mb={4}>
           ${product.price}
         </Text>
-        <HStack spacing={2}>
-          <IconButton icon={<EditIcon/>} onClick={onOpen} colorScheme='blue'/>
-          <IconButton icon={<DeleteIcon/>} onClick={() => handleDeleteProduct (product._id)}
-          colorScheme='red'/>
+        <HStack spacing={2} justifyContent='space-between'>
+          <HStack spacing={2}>
+            <IconButton icon={<EditIcon/>} onClick={onOpen} colorScheme='blue'/>
+            <IconButton icon={<DeleteIcon/>} onClick={() => handleDeleteProduct (product._id)}
+            colorScheme='red'/>
+          </HStack>
+          {isLowStock && (
+            <Text fontSize='xl' color='orange.500' fontWeight='bold' mb={4}>
+              ⚠ Alerta de stock
+            </Text>
+          )}
 
         </HStack>
       </Box>
@@ -124,6 +135,7 @@ const ProductCard = ({ product }) => {
                     <Input placeholder="Nombre" name="name" {...register('name')} />
                     <Input placeholder="Precio" name="price" type="number" {...register('price')} />
                     <Input placeholder="Cantidad" name="stock" type="number" {...register('stock')} />
+                    <Input placeholder="Cantidad minima" name="minStock" type="number" {...register('minStock')} />
                     <Input placeholder="Image URL" name="image" {...register('image')} />
                   </VStack>            
               </ModalBody>

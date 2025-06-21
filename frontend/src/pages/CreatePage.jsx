@@ -9,6 +9,7 @@ const CreatePage = () => {
     name:"",
     price:"",
     stock:"",
+    minStock:"",
     image:"",
   }); 
 
@@ -33,7 +34,7 @@ const CreatePage = () => {
             isClosable: true
         });
         }
-    setNewProduct({ name:"", price:"", stock:"", image:""});
+    setNewProduct({ name:"", price:"", stock:"", minStock:"", image:""});
 };
 
 
@@ -75,6 +76,16 @@ const CreatePage = () => {
                             value={newProduct.stock}
                             onChange={(e) =>
                                 setNewProduct({ ...newProduct, stock: e.target.value })
+                            }
+                            _placeholder={{ color: useColorModeValue("gray.600", "gray.100") }}
+                            />
+                            <Input
+                            placeholder="Cantidad Mínima"
+                            name="minStock"
+                            type="number"
+                            value={newProduct.minStock}
+                            onChange={(e) =>
+                                setNewProduct({ ...newProduct, minStock: e.target.value })
                             }
                             _placeholder={{ color: useColorModeValue("gray.600", "gray.100") }}
                             />
