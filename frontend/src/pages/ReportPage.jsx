@@ -27,15 +27,20 @@ const ReportPage = () => {
     fetchProducts();
   }, [fetchProducts]);
 
+
+  //Esto esta en el back y se puede ir
   const stocks = products.map((p) => Number(p.stock)).filter((n) => !isNaN(n));
   const total = products.length;
   const totalStock = stocks.reduce((acc, val) => acc + val, 0);
   const avgStock = total > 0 ? totalStock / total : 0;
 
+  //Esto NO esta en el back y se tiene que quedar
   const stockChartData = products.map((p) => ({
     name: p.name,
     stock: Number(p.stock) || 0,
   }));
+
+
 
   return (
     <Container maxW={"container.md"}>
