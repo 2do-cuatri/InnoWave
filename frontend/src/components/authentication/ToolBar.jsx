@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AuthenticationContext from "./AuthenticationContext"
 import { Button, Container, HStack, Tooltip } from '@chakra-ui/react'
 import useUser from "../../hooks/useUser";
-import { CalendarIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import { CalendarIcon, PlusSquareIcon, ViewIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 const ToolBar = () => {
@@ -12,7 +12,13 @@ const ToolBar = () => {
     return (
         <HStack spacing={2} alignItems={"center"} >
             
-
+            <Tooltip label="Listado de Productos">
+                <Link to={"/"}>
+                    <Button>
+                        <ViewIcon fontSize={20}/>
+                    </Button>
+                </Link>
+            </Tooltip>
             <Tooltip label="Crear Producto">
                 <Link to={"/create"}>
                     <Button>
@@ -22,13 +28,15 @@ const ToolBar = () => {
             </Tooltip>
 
             <Tooltip label="Reporte">
-                <Button>
-                    <CalendarIcon fontSize={20}/>
-                </Button>
+                <Link to={"/report"}>
+                    <Button>
+                        <CalendarIcon fontSize={20}/>
+                    </Button>
+                </Link>
             </Tooltip>
 
             
-            <Button colorScheme='orange' onClick={() => logout()}>{loading ? '...' : 'Cerrar Seción'}</Button>
+            <Button colorScheme='orange' onClick={() => logout()}>{loading ? '...' : 'Cerrar Sesión'}</Button>
                    
         </HStack>
     )

@@ -2,7 +2,7 @@ import { Button, Container, Flex, HStack, Text, Tooltip, useColorMode } from '@c
 import { Link } from 'react-router-dom';
 //import {IoMoon} from 'react-icons/io5';
 
-import { SunIcon, MoonIcon, CalendarIcon } from '@chakra-ui/icons';
+import { SunIcon, MoonIcon, CalendarIcon, ViewIcon } from '@chakra-ui/icons';
 import ToolBar from './authentication/ToolBar';
 
 function Navbar() {
@@ -18,6 +18,7 @@ function Navbar() {
                 base:"column",
                 sm:"row"
             }}>
+                
                 <Text
                     fontSize={{base:"22", sm:"28"}}
                     fontWeight={'bold'}
