@@ -13,7 +13,9 @@ const _createAndSaveNewReport = async () => {
                     minPrice: { $min: "$price" },
                     maxPrice: { $max: "$price" },
                     avgPrice: { $avg: "$price" },
-                    prodQuantity: { $sum: 1 } // Sum 1 for each document to get total count
+                    prodQuantity: { $sum: 1 }, // Sum 1 for each document to get total count
+                    totalStock: { $sum: "$stock" }, // Calculate total stock
+                    avgStock: { $avg: "$stock" } // Calculate average stock
                 }
             },
             {
@@ -22,7 +24,9 @@ const _createAndSaveNewReport = async () => {
                     prodQuantity: 1,
                     minPrice: 1,
                     maxPrice: 1,
-                    avgPrice: 1
+                    avgPrice: 1,
+                    totalStock: 1, // Include total stock
+                    avgStock: 1 // Include average stock
                 }
             }
         ]);
@@ -31,10 +35,12 @@ const _createAndSaveNewReport = async () => {
             prodQuantity: 0,
             minPrice: 0,
             maxPrice: 0,
-            avgPrice: 0
+            avgPrice: 0,
+            totalStock: 0, // Initialize total stock
+            avgStock: 0 // Initialize average stock
         };
 
-        // Check if any results were returned from the aggregation
+        // Si la agregación tuvo resultados, utiliza el primero
         if (aggregationResult.length > 0) {
             reportData = aggregationResult[0];
         }
@@ -49,7 +55,6 @@ const _createAndSaveNewReport = async () => {
     }
 };
 
-
 // 2. Controlador para CREAR un reporte (tu createReport original, modificado)
 export const createReport = async (req, res) => {
     try {
@@ -61,7 +66,7 @@ export const createReport = async (req, res) => {
     }
 };
 
-// 3. Controlador para OBTENER el reporte (tu getReport original, modificado)
+// 3. Controlador para OBTENER el reporte 
 export const getReport = async (req, res) => {
     try {
         const reportCount = await Report.countDocuments({});

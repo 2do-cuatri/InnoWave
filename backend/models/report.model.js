@@ -17,6 +17,14 @@ const reportSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    totalStock:{
+        type: Number,
+        required: true
+    },
+    avgStock:{
+        type: Number,
+        required: true
+    }
 },{
     timestamps: true
 }) 
