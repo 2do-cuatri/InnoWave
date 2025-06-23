@@ -19,29 +19,39 @@ import {
 } from "recharts";
 import { useEffect } from "react";
 import { useProductStore } from "../store/product";
+import { useReportStore } from "../store/report";
 
 const ReportPage = () => {
   const { products, fetchProducts } = useProductStore();
+  const { report, getReport } = useReportStore();
 
   useEffect(() => {
     fetchProducts();
-  }, [fetchProducts]);
+    getReport();
+  }, [fetchProducts, getReport]);
 
+  const {
+    prodQuantity,
+    minPrice,
+    maxPrice,
+    avgPrice,
+    totalStock,
+    avgStock,
+  } = report;
 
-  //Esto esta en el back y se puede ir
-  const stocks = products.map((p) => Number(p.stock)).filter((n) => !isNaN(n));
-  const total = products.length;
-  const totalStock = stocks.reduce((acc, val) => acc + val, 0);
-  const avgStock = total > 0 ? totalStock / total : 0;
-
-  //Esto NO esta en el back y se tiene que quedar
   const stockChartData = products.map((p) => ({
     name: p.name,
     stock: Number(p.stock) || 0,
   }));
 
+  const formatoPrecio = Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+  });
 
-
+ const borderColor = useColorModeValue("gray.200", "gray.600");
+ const headerColor = useColorModeValue("blue.600", "blue.300")
+  
   return (
     <Container maxW={"container.md"}>
       <VStack spacing={8}>
@@ -69,30 +79,57 @@ const ReportPage = () => {
                   justifyContent="space-between"
                   p={2}
                   borderBottom="1px solid"
-                  borderColor={useColorModeValue("gray.200", "gray.600")}
+                  borderColor={borderColor}
                 >
                   <Text fontWeight="medium">Total de productos</Text>
-                  <Text fontWeight="bold">{total}</Text>
+                  <Text fontWeight="bold">{prodQuantity}</Text>
                 </Flex>
                 <Flex
                   justifyContent="space-between"
                   p={2}
                   borderBottom="1px solid"
-                  borderColor={useColorModeValue("gray.200", "gray.600")}
+                  borderColor={borderColor}
                 >
                   <Text fontWeight="medium">Stock total</Text>
                   <Text fontWeight="bold">{totalStock}</Text>
                 </Flex>
-                <Flex justifyContent="space-between" p={2}>
+                <Flex 
+                  justifyContent="space-between"
+                  p={2}
+                  borderBottom="1px solid"
+                  borderColor={borderColor}
+                >
                   <Text fontWeight="medium">Stock promedio</Text>
                   <Text fontWeight="bold">{avgStock.toFixed(2)}</Text>
+                </Flex>
+                <Flex
+                  borderBottom="1px solid"
+                  borderColor={borderColor}
+                  justifyContent="space-between"
+                  p={2}
+                >
+                  <Text fontWeight="medium">Precio promedio</Text>
+                  <Text fontWeight="bold">{formatoPrecio.format(avgPrice)}</Text>
+                </Flex>
+                <Flex 
+                  justifyContent="space-between" 
+                  p={2}
+                  borderBottom="1px solid"
+                  borderColor={borderColor}
+                >
+                  <Text fontWeight="medium">Menor precio</Text>
+                  <Text fontWeight="bold">{formatoPrecio.format(minPrice)}</Text>
+                </Flex>
+                <Flex justifyContent="space-between" p={2}>
+                  <Text fontWeight="medium">Mayor precio</Text>
+                  <Text fontWeight="bold">{formatoPrecio.format(maxPrice)}</Text>
                 </Flex>
               </SimpleGrid>
              <Heading
                 as="h2"
                 size="md"
                 mb={4}
-                color={useColorModeValue("blue.600", "blue.300")}
+                color={headerColor}
                 textAlign="center"
                 w="full"
               >
