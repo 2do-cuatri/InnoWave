@@ -31,6 +31,11 @@ const ProductCard = ({ product }) => {
   const STOCK_THRESHOLD = product.minStock;
   const isLowStock = product.stock <= STOCK_THRESHOLD;
 
+  const formatoPrecio = Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+  });
+
   const {deleteProduct, updateProduct} = useProductStore()
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -108,7 +113,7 @@ const ProductCard = ({ product }) => {
           {product.name}
         </Heading>
         <Text fontWeight='bold' fontSize='xl' color={textColor} mb={4}>
-          ${product.price}
+          {formatoPrecio.format(product.price)}
         </Text>
         <HStack spacing={2} justifyContent='space-between'>
           <HStack spacing={2}>

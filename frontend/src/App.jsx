@@ -6,7 +6,9 @@ import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from "./components/authentication/ProtectedRoute";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
+import ReportPage from "./pages/ReportPage";
 import NotFoundPage from "./pages/NotFoundPage";
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
             } />
           <Route path="/ingreso" element={<Login />} />
           <Route path="/registro" element={<SignUp />} />
+          <Route path="/report" element={<ReportPage />} />
         </Routes>
 
       </Box>
