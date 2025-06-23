@@ -7,20 +7,16 @@ import ProtectedRoute from "./components/authentication/ProtectedRoute";
 import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import ReportPage from "./pages/ReportPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
 
 function App() {
-  
   return (
     <>
       <Box minH={"100vh"}bg={useColorModeValue("gray.100","gray.900")}>
         <Navbar/>
         <Routes>
-          <Route path="*" element={
-            // TODO: hacer una pagina not found
-            <div>
-              Oops, parece que la pagina que estas buscando no existe
-            </div>
-          } />
+          <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={
             <ProtectedRoute>
               <HomePage/>
