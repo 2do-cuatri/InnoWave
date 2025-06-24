@@ -26,6 +26,10 @@ jobs:
 
   test-backend:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+      JWT_COOKIE_NAME: test
+      JWT_SECRET: test-secret
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js 19
