@@ -79,17 +79,17 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-    deploy:
-      needs: docker
-      runs-on: ubuntu-latest
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      steps:
-        - name: Trigger Render Deploy Hook
-          env:
-            DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-          run: |
-            echo "Trigger al deploy en Render con la imagen actualizada..."
-            curl -X POST "${DEPLOY_HOOK}"
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Trigger Render Deploy Hook
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          echo "Trigger al deploy en Render con la imagen actualizada..."
+          curl -X POST "${DEPLOY_HOOK}"
 
 env:
   REGISTRY: docker.io
