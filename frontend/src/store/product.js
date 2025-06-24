@@ -5,7 +5,7 @@ export const useProductStore = create((set) => ({
     products: [],
     setProducts: (products) => set({products}),
     createProduct: async (newProduct) => {
-        if(!newProduct.name || !newProduct.image || !newProduct.stock || !newProduct.price) {
+        if(!newProduct.name || !newProduct.image || !newProduct.stock || !newProduct.price || !newProduct.minStock) {
             return {success:false, message:"Por favor complete todos los campos"};
         }
         const res = await fetch(`${API_URL}/products`, {
