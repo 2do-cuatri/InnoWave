@@ -28,8 +28,9 @@ app.use(cors({
 app.use(express.json()); //Permite recibir datos en formato JSON
 app.use(cookieParser());
 
+const directorioFE = process.env.NODE_ENV === 'production' ? '/public' : '../frontend/dist';
 // Servir estaticos del FE
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.use(express.static(path.join(__dirname, directorioFE)));
 
 // Rutas
 app.use("/api/products", productRoutes);
